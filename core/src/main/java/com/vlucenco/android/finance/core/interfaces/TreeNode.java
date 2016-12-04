@@ -6,6 +6,8 @@ import java.util.List;
 // Custom implementation of "Composite" design pattern
 public interface TreeNode {
 
+    String getName();
+
     long getId();
 
     void add(TreeNode child);

@@ -1,5 +1,6 @@
 package com.vlucenco.android.finance.core.impls;
 
+import com.vlucenco.android.finance.core.abstracts.AbstractTreeNode;
 import com.vlucenco.android.finance.core.exceptions.AmountException;
 import com.vlucenco.android.finance.core.exceptions.CurrencyException;
 import com.vlucenco.android.finance.core.interfaces.Storage;
@@ -11,16 +12,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DefaultStorage implements Storage {
+public class DefaultStorage extends AbstractTreeNode implements Storage {
 
-    private String name;
     private Map<Currency, BigDecimal> currencyAmounts = new HashMap<>();
     private List<Currency> currencyList = new ArrayList<>();
 
-    public DefaultStorage(){}
+    public DefaultStorage() {
+    }
 
-    public DefaultStorage(String name){
-        this.name = name;
+    public DefaultStorage(String name) {
+        super(name);
+    }
+
+    public DefaultStorage(String name, long id) {
+        super(name, id);
     }
 
     public DefaultStorage(Map<Currency, BigDecimal> currencyAmounts) {
@@ -32,7 +37,7 @@ public class DefaultStorage implements Storage {
     }
 
     public DefaultStorage(String name, Map<Currency, BigDecimal> currencyAmounts, List<Currency> currencyList) {
-        this.name = name;
+        super(name);
         this.currencyAmounts = currencyAmounts;
         this.currencyList = currencyList;
     }
@@ -54,15 +59,6 @@ public class DefaultStorage implements Storage {
 
     public void setCurrencyAmounts(Map<Currency, BigDecimal> currencyAmounts) {
         this.currencyAmounts = currencyAmounts;
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     @Override
