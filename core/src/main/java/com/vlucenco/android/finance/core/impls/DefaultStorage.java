@@ -1,9 +1,8 @@
 package com.vlucenco.android.finance.core.impls;
 
-import com.sun.xml.internal.ws.server.UnsupportedMediaException;
-import com.vlucenco.android.finance.core.interfaces.Storage;
 import com.vlucenco.android.finance.core.exceptions.AmountException;
 import com.vlucenco.android.finance.core.exceptions.CurrencyException;
+import com.vlucenco.android.finance.core.interfaces.Storage;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -18,11 +17,11 @@ public class DefaultStorage implements Storage {
     private Map<Currency, BigDecimal> currencyAmounts = new HashMap<>();
     private List<Currency> currencyList = new ArrayList<>();
 
-    public DefaultStorage(){};
+    public DefaultStorage(){}
 
     public DefaultStorage(String name){
         this.name = name;
-    };
+    }
 
     public DefaultStorage(Map<Currency, BigDecimal> currencyAmounts) {
         this.currencyAmounts = currencyAmounts;
@@ -131,7 +130,7 @@ public class DefaultStorage implements Storage {
     @Override
     public BigDecimal getApproxAmount(Currency currency) {
         // TODO implement balance calculation with bringing it to one currency
-        throw new UnsupportedMediaException("Not implemented");
+        throw new UnsupportedOperationException("Not implemented");
     }
 
     @Override
