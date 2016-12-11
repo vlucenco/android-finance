@@ -66,7 +66,20 @@ public class StorageDAOImpl implements StorageDAO {
     }
 
     @Override
-    public boolean updateAmount(Storage storage, BigDecimal amount) {
+    public boolean updateAmount(Storage storage, Currency currency, BigDecimal amount) {
+        try (PreparedStatement stmt = SQLiteConnection.getConnection().prepareStatement("update " +
+                STORAGE_TABLE + " set name=? where id=?");) {
+
+            stmt.setString(1, storage.getName());
+            stmt.setLong(2, storage.getId());
+
+            if (stmt.executeUpdate() == 1) {
+                return true;
+            }
+
+        } catch (SQLException e) {
+            Logger.getLogger(StorageDAOImpl.class.getName()).log(Level.SEVERE, null, e);
+        }
         return false;
     }
 
