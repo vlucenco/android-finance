@@ -9,9 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 // TODO Change BigDecimal type to a ready made class for working with Money
-public interface Storage {
-
-    String getName(); // obliges name field realization
+public interface Storage extends TreeNode {
 
     // getting the balance
     Map<Currency, BigDecimal> getCurrencyAmounts(); // amount for each currency in storage

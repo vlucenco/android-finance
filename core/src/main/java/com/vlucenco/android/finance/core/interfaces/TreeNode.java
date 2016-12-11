@@ -21,4 +21,6 @@ public interface TreeNode {
     TreeNode getParent();
 
     void setParent(TreeNode parent);
+
+    boolean hasChildren();
 }

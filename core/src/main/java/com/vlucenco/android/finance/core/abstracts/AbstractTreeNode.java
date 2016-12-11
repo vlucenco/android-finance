@@ -63,7 +63,7 @@ public abstract class AbstractTreeNode implements TreeNode {
 
     @Override
     public long getId() {
-        return 0;
+        return id;
     }
 
     public void setId(long id) {
@@ -81,6 +81,12 @@ public abstract class AbstractTreeNode implements TreeNode {
         return null;
     }
 
+    @Override
+    public boolean hasChildren() {
+        return !children.isEmpty();
+    }
+
+    @Override
     public String getName() {
         return name;
     }
