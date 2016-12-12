@@ -10,12 +10,12 @@ import java.util.List;
 
 // synchronizes all operations between collection objects and db
 // Decorator pattern (modified)
-public class StorageSynchronizer implements StorageDAO {
+public class StorageSync implements StorageDAO {
 
     private StorageDAO storageDAO;
     private List<Storage> storageList;
 
-    public StorageSynchronizer(StorageDAO storageDAO) {
+    public StorageSync(StorageDAO storageDAO) {
         this.storageDAO = storageDAO;
         init();
     }
