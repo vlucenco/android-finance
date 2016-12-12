@@ -1,6 +1,6 @@
 package com.vlucenco.android.finance.core.interfaces;
 
-import com.vlucenco.android.finance.core.objects.OperationType;
+import com.vlucenco.android.finance.core.enums.OperationType;
 
 public interface Source extends TreeNode{
 

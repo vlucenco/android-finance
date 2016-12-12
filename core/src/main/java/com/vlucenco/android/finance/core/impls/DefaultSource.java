@@ -3,7 +3,7 @@ package com.vlucenco.android.finance.core.impls;
 import com.vlucenco.android.finance.core.abstracts.AbstractTreeNode;
 import com.vlucenco.android.finance.core.interfaces.Source;
 import com.vlucenco.android.finance.core.interfaces.TreeNode;
-import com.vlucenco.android.finance.core.objects.OperationType;
+import com.vlucenco.android.finance.core.enums.OperationType;
 
 import java.util.List;
 
