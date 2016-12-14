@@ -1,6 +1,7 @@
 package com.vlucenco.android.finance.core.decorator;
 
 import com.vlucenco.android.finance.core.dao.interfaces.SourceDAO;
+import com.vlucenco.android.finance.core.enums.OperationType;
 import com.vlucenco.android.finance.core.interfaces.Source;
 
 import java.util.List;
@@ -16,7 +17,7 @@ public class SourceSync implements SourceDAO {
 
     @Override
     public List<Source> getAll() {
-        if (sourceList==null){
+        if (sourceList == null) {
             sourceList = sourceDAO.getAll();
         }
         return sourceList;
@@ -29,7 +30,7 @@ public class SourceSync implements SourceDAO {
 
     @Override
     public boolean update(Source source) {
-        if (sourceDAO.update(source)){
+        if (sourceDAO.update(source)) {
             return true;
         }
         return false;
@@ -38,10 +39,16 @@ public class SourceSync implements SourceDAO {
     @Override
     public boolean delete(Source source) {
         // TODO добавить нужные Exceptions
-        if (sourceDAO.delete(source)){
+        if (sourceDAO.delete(source)) {
             sourceList.remove(source);
+            sourceDAO.getList(source.getOperationType()).remove(source);
             return true;
         }
         return false;
+    }
+
+    @Override
+    public List<Source> getList(OperationType operationType) {
+        return sourceDAO.getList(operationType);
     }
 }
