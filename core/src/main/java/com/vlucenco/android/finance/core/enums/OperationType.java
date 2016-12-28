@@ -21,7 +21,7 @@ public enum OperationType {
         this.id = id;
     }
 
-    private Integer getId() {
+    public Integer getId() {
         return id;
     }
 

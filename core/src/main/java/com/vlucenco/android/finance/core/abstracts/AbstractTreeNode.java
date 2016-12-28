@@ -11,6 +11,7 @@ public abstract class AbstractTreeNode implements TreeNode {
     private List<TreeNode> children = new ArrayList<>();
     private TreeNode parent;
     private String name;
+    private long parentId;
 
     public AbstractTreeNode() {
     }
@@ -86,14 +87,6 @@ public abstract class AbstractTreeNode implements TreeNode {
         return !children.isEmpty();
     }
 
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     @Override
     public String toString() {
@@ -114,5 +107,22 @@ public abstract class AbstractTreeNode implements TreeNode {
     @Override
     public int hashCode() {
         return (int) (id ^ (id >>> 32));
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public long getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(long parentId) {
+        this.parentId = parentId;
     }
 }

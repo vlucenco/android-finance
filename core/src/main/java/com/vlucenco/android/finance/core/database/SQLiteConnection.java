@@ -15,10 +15,11 @@ public class SQLiteConnection {
             Class.forName("org.sqlite.JDBC").newInstance();
 
             // creates db connection using the url path
-            String url = "jdbc:sqlite:/Users/vlucenco/Dev/repos/money.db";
+            String url = "jdbc:sqlite:D:\\Dev\\repos\\money.db";
 
             if (con == null) con = DriverManager.getConnection(url);
 
+            con.createStatement().execute("PRAGMA foreign_keys = ON");
             return con;
         } catch (SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
             Logger.getLogger(SQLiteConnection.class.getName()).log(Level.SEVERE, null, ex);

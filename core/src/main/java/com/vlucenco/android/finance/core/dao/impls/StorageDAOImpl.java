@@ -4,7 +4,7 @@ import com.vlucenco.android.finance.core.dao.interfaces.StorageDAO;
 import com.vlucenco.android.finance.core.database.SQLiteConnection;
 import com.vlucenco.android.finance.core.impls.DefaultStorage;
 import com.vlucenco.android.finance.core.interfaces.Storage;
-import com.vlucenco.android.finance.core.utils.TreeConstructor;
+import com.vlucenco.android.finance.core.utils.TreeUtils;
 
 import java.math.BigDecimal;
 import java.sql.PreparedStatement;
@@ -22,7 +22,7 @@ public class StorageDAOImpl implements StorageDAO {
     private static final String CURRENCY_TABLE = "currency_amount";
     private static final String STORAGE_TABLE = "storage";
 
-    private TreeConstructor<Storage> treeConstructor = new TreeConstructor();
+    private TreeUtils<Storage> treeUtils = new TreeUtils();
     private List<Storage> storageList = new ArrayList<>();
 
     @Override
@@ -103,7 +103,7 @@ public class StorageDAOImpl implements StorageDAO {
 
                 long parentId = rs.getLong("parent_id");
 
-                treeConstructor.addToTree(parentId, storage, storageList);
+                treeUtils.addToTree(parentId, storage, storageList);
             }
             return storageList; // in the end storageList should contain root elements only
         } catch (SQLException e) {
