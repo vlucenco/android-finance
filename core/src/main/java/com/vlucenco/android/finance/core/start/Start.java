@@ -1,8 +1,14 @@
 package com.vlucenco.android.finance.core.start;
 
 import com.vlucenco.android.finance.core.dao.impls.SourceDAOImpl;
+import com.vlucenco.android.finance.core.dao.impls.StorageDAOImpl;
 import com.vlucenco.android.finance.core.decorator.SourceSync;
+import com.vlucenco.android.finance.core.decorator.StorageSync;
+import com.vlucenco.android.finance.core.exceptions.CurrencyException;
 import com.vlucenco.android.finance.core.interfaces.Source;
+import com.vlucenco.android.finance.core.interfaces.Storage;
+
+import java.util.Currency;
 
 public class Start {
 
@@ -34,13 +40,14 @@ public class Start {
 //        System.out.println("impl.get(3) = " + impl.get(3));
 //        impl.getList(OperationType.OUTCOME);
 
-        SourceSync sourceSync = new SourceSync(new SourceDAOImpl());
-        sourceSync.getAll();
+        StorageSync storageSync = new StorageSync(new StorageDAOImpl());
+        Storage s = storageSync.get(9);
 
-//        Source s = sourceSync.get(1);
-//        sourceSync.delete(s);
+        try {
+            storageSync.addCurrency(s, Currency.getInstance("USD"));
+        } catch (CurrencyException e) {
+            e.printStackTrace();
+        }
 
-        Source s2 = sourceSync.get(3);
-        sourceSync.delete(s2);
     }
 }

@@ -1,19 +1,31 @@
 package com.vlucenco.android.finance.core.decorator;
 
 import com.vlucenco.android.finance.core.dao.interfaces.StorageDAO;
+import com.vlucenco.android.finance.core.enums.OperationType;
 import com.vlucenco.android.finance.core.exceptions.CurrencyException;
 import com.vlucenco.android.finance.core.interfaces.Storage;
+import com.vlucenco.android.finance.core.utils.TreeUtils;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Currency;
+import java.util.EnumMap;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 // synchronizes all operations between collection objects and db
 // Decorator pattern (modified)
 public class StorageSync implements StorageDAO {
 
+    private TreeUtils<Storage> treeUtils = new TreeUtils();
+
+
+    private List<Storage> treeList = new ArrayList<>();
+    private Map<Long, Storage> identityMap = new HashMap<>();
+
     private StorageDAO storageDAO;
-    private List<Storage> storageList;
 
     public StorageSync(StorageDAO storageDAO) {
         this.storageDAO = storageDAO;
@@ -21,7 +33,16 @@ public class StorageSync implements StorageDAO {
     }
 
     private void init() {
-        storageList = storageDAO.getAll();
+        List<Storage> storageList = storageDAO.getAll();
+
+        for (Storage s : storageList) {
+            identityMap.put(s.getId(), s);
+            treeUtils.addToTree(s.getParentId(), s, treeList);
+        }
+    }
+
+    public StorageDAO getStorageDAO() {
+        return storageDAO;
     }
 
     @Override
@@ -63,7 +84,12 @@ public class StorageSync implements StorageDAO {
     public boolean delete(Storage storage) {
         //TODO add necessary exceptions
         if (storageDAO.delete(storage)) {
-            storageList.remove(storage);
+            identityMap.remove(storage.getId());
+            if (storage.getParent() != null) {
+                storage.getParent().remove(storage);
+            } else {
+                treeList.remove(storage);
+            }
             return true;
         }
         return false;
@@ -71,15 +97,12 @@ public class StorageSync implements StorageDAO {
 
     @Override
     public List<Storage> getAll() {
-        if (storageList == null) {
-            storageList = storageDAO.getAll();
-        }
-        return storageList;
+        return treeList;
     }
 
     @Override
     public Storage get(long id) {
-        return storageDAO.get(id);
+        return identityMap.get(id);
     }
 
 }
